@@ -10,6 +10,9 @@ steps:
   # Build the application for production
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'build:prod']
-  # Archive the build artifacts (optional, but good practice for deployment)
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   args: ['artifacts', 'upload', '--repository=your-repo-name', '--location=your-location', '--source=dist/sazon-del-bueno-frontend']
+  # Deploy to Firebase Hosting
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install', '-g', 'firebase-tools']
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['deploy', '--project=YOUR_FIREBASE_PROJECT_ID', '--only', 'hosting']
+    entrypoint: 'firebase'
